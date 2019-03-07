@@ -62,15 +62,18 @@ public class Main {
                     String[] commandValueArray;
                     switch (commandStatus) {
                         case COMMAND_PARK:
-                            commandValue = command.substring(2);
+                            if(command.charAt(1) == ':') commandValue = command.substring(2);
+                            else commandValue = command.substring(5);
                             addCarsInQueue(Integer.valueOf(commandValue), entryQueue);
                             break;
                         case COMMAND_UNPARK_SINGLE:
-                            commandValue = command.substring(2);
+                            if(command.charAt(1) == ':') commandValue = command.substring(2);
+                            else commandValue = command.substring(7);
                             unparkSingleCar(new Ticket(Integer.valueOf(commandValue)), exitQueue);
                             break;
                         case COMMAND_UNPARK_MULTI:
-                            commandValueArray = command.substring(3, command.length() - 1).split(",");
+                            if(command.charAt(1) == ':') commandValueArray = command.substring(3, command.length() - 1).split(",");
+                            else commandValueArray = command.substring(8, command.length() - 1).split(",");
                             Ticket[] tickets = new Ticket[commandValueArray.length];
                             for (int i = 0; i < commandValueArray.length; i++) {
                                 tickets[i] = new Ticket(Integer.valueOf(commandValueArray[i]));
